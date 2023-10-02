@@ -1,32 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils_print.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gfabre <gfabre@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/04 11:12:39 by edilson           #+#    #+#             */
-/*   Updated: 2023/09/22 16:57:42 by gfabre           ###   ########.fr       */
+/*   Created: 2023/09/21 13:52:02 by gfabre            #+#    #+#             */
+/*   Updated: 2023/09/21 13:52:53 by gfabre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv, char **env)
+void	print_env(char **env)
 {
-	char	**env2;
+	int	i;
 
-	if (argc != 1)
+	i = 0;
+	while (env[i])
 	{
-		ft_putstr_fd("Error\nInvalid number of arguments\n", 2);
-		exit(0);
+		printf("%s\n", env[i]);
+		i++;
 	}
-	if (argv)
-		argv = &argv[1];
-	env2 = get_env(env);
-	while (1)
+}
+
+void	print_echo(char **tab)
+{
+	int	i;
+
+	i = 0;
+	while (tab[i])
 	{
-		get_com(env2);
+		ft_putstr_fd(tab[i], 1);
+		if (tab[i + 1])
+			ft_putchar_fd(' ', 1);
+		i++;
 	}
-	return (0);
 }

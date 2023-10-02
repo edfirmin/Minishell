@@ -3,22 +3,22 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: edilson <edilson@student.42.fr>            +#+  +:+       +#+         #
+#    By: gfabre <gfabre@student.42nice.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/04 10:05:00 by edilson           #+#    #+#              #
-#    Updated: 2023/09/19 12:12:22 by edilson          ###   ########.fr        #
+#    Updated: 2023/09/27 14:33:55 by gfabre           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-SRC = main.c makecdwork.c makecdwork2.c
+SRC = main.c makecdwork.c makecdwork2.c utils.c utils_print.c utils2.c ft_unset.c ft_export.c
 
 FLG = -Wall -Wextra -Werror
 
-HEADERS = -I/opt/homebrew/opt/readline/include -I include
+HEADERS = -I/usr/local/opt/readline/include -I include
 
-LIB_PATH =  -L. lib/libft.a -lreadline -L/opt/homebrew/opt/readline/lib
+LIB_PATH =  -L. -lreadline -L/usr/local/opt/readline/lib
 
 OBJ = $(SRC:.c=.o)
 
@@ -29,7 +29,7 @@ all : $(NAME)
 
 $(NAME) : $(OBJ)
 	cd lib ; make
-	gcc $(FLG) $(OBJ) $(HEADERS) $(LIB_PATH) -o $(NAME)
+	gcc $(FLG) $(OBJ) $(HEADERS) lib/libft.a $(LIB_PATH) -o $(NAME)
 clean :
 	cd lib ; make clean
 	rm -f $(OBJ)
