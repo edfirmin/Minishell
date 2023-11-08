@@ -6,13 +6,13 @@
 #    By: gfabre <gfabre@student.42nice.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/04 10:05:00 by edilson           #+#    #+#              #
-#    Updated: 2023/09/27 14:33:55 by gfabre           ###   ########.fr        #
+#    Updated: 2023/11/08 13:59:13 by gfabre           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-SRC = main.c makecdwork.c makecdwork2.c utils.c utils_print.c utils2.c ft_unset.c ft_export.c
+SRC = main.c makecdwork.c makecdwork2.c utils.c utils_print.c utils2.c ft_unset.c ft_export.c ft_jsp.c ft_jsp2.c
 
 FLG = -Wall -Wextra -Werror
 

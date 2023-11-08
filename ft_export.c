@@ -6,7 +6,7 @@
 /*   By: gfabre <gfabre@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 14:20:06 by gfabre            #+#    #+#             */
-/*   Updated: 2023/09/28 14:05:41 by gfabre           ###   ########.fr       */
+/*   Updated: 2023/10/06 21:50:10 by gfabre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	ft_export(char *str, char **env)
 		i++;
 	if (j != -1)
 	{
-		printf("j = %d\n", j);
 		while (str[i])
 		{
 			env[j][k] = str[i];
@@ -96,11 +95,13 @@ int	exist(char *word, char *env)
 
 void	ft_export2(char *str, char **env)
 {
-	int	j;
-	int	i;
+	int		j;
+	int		i;
+	char	*bug;
 
 	j = 0;
 	i = 6;
+	bug = ft_strdup(env[3]);
 	while (env[j])
 		j++;
 	env[j + 1] = NULL;
@@ -109,5 +110,6 @@ void	ft_export2(char *str, char **env)
 	while (str[i] == ' ' || str[i] == '	')
 		i++;
 	env[j] = ft_strdup(&str[i]);
+	env[3] = ft_strdup(bug);
 	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: gfabre <gfabre@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 13:48:14 by gfabre            #+#    #+#             */
-/*   Updated: 2023/09/28 12:01:53 by gfabre           ###   ########.fr       */
+/*   Updated: 2023/11/08 15:11:56 by gfabre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	exec_com(char *str, char **env)
 {
 	char	*log;
 
+	if (ft_analyse(str) != -1)
+		str = get_newstr(str, env);
 	if (check_com(str, "exit"))
 	{
 		printf("quit\n");
@@ -61,6 +63,8 @@ void	get_com(char **env)
 	signal(SIGINT, ft_ctrl);
 	signal(SIGQUIT, ft_ctrl);
 	str = readline("minishell$> ");
+	while (ft_analyse(str) != -1)
+		str = get_newstr(str, env);
 	check_other(str, env);
 	if (str == NULL)
 	{

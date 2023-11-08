@@ -6,7 +6,7 @@
 /*   By: gfabre <gfabre@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 11:54:44 by edilson           #+#    #+#             */
-/*   Updated: 2023/09/27 15:40:12 by gfabre           ###   ########.fr       */
+/*   Updated: 2023/11/08 14:11:18 by gfabre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,11 @@ int		check_if_alrdy(char *str, char **env);
 char	*get_word(char *str);
 int		exist(char *word, char *env);
 void	ft_export2(char *str, char **env);
+int		ft_analyse(char *str);
+char	*get_newstr(char *str, char **env);
+char	*get_newstr2(char *str, char *replace);
+char	*get_str(char *str);
+char	*get_inpath(char *replace, char **env);
+int		get_size(char *str, char *replace);
 
 #endif
