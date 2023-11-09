@@ -6,7 +6,7 @@
 /*   By: gfabre <gfabre@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 21:16:32 by gfabre            #+#    #+#             */
-/*   Updated: 2023/11/08 15:42:12 by gfabre           ###   ########.fr       */
+/*   Updated: 2023/11/09 16:04:17 by gfabre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char	*get_inpath(char *replace, char **env)
 	k = 0;
 	while (env[j])
 	{
-		if (ft_strstr(env[j], replace) == 1)
+		if (ft_strstr2(env[j], replace) == 1)
 			break ;
 		j++;
 	}
@@ -137,4 +137,3 @@ char	*get_newstr2(char *str, char *replace)
 	newstr[j] = '\0';
 	return (newstr);
 }
-//gerer si il y a des chose derriere les $qlqchose genre cd $PATH | ls 

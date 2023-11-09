@@ -6,7 +6,7 @@
 /*   By: gfabre <gfabre@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 14:20:06 by gfabre            #+#    #+#             */
-/*   Updated: 2023/10/06 21:50:10 by gfabre           ###   ########.fr       */
+/*   Updated: 2023/11/09 16:41:02 by gfabre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	ft_export(char *str, char **env)
 	i = 6;
 	k = 0;
 	j = check_if_alrdy(str, env);
+	printf("j = %d\n", j);
 	while (str[i] == ' ' || str[i] == '	')
 		i++;
 	if (j != -1)
@@ -46,8 +47,11 @@ int	check_if_alrdy(char *str, char **env)
 	word = get_word(str);
 	while (env[j])
 	{
-		if (exist(word, env[j]) == 1)
+		if (ft_strstr2(env[j], word) == 1)
+		{
+			printf("j = %d\n", j);
 			return (j);
+		}
 		j++;
 	}
 	return (-1);
@@ -79,20 +83,6 @@ char	*get_word(char *str)
 	return (word);
 }
 
-int	exist(char *word, char *env)
-{
-	int	i;
-
-	i = 0;
-	while (env[i] != '=')
-	{
-		if (env[i] != word[i])
-			return (-1);
-		i++;
-	}
-	return (1);
-}
-
 void	ft_export2(char *str, char **env)
 {
 	int		j;
@@ -101,7 +91,7 @@ void	ft_export2(char *str, char **env)
 
 	j = 0;
 	i = 6;
-	bug = ft_strdup(env[3]);
+	bug = ft_strdup(env[5]);
 	while (env[j])
 		j++;
 	env[j + 1] = NULL;
@@ -110,6 +100,6 @@ void	ft_export2(char *str, char **env)
 	while (str[i] == ' ' || str[i] == '	')
 		i++;
 	env[j] = ft_strdup(&str[i]);
-	env[3] = ft_strdup(bug);
+	env[5] = ft_strdup(bug);
 	return ;
 }

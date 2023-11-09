@@ -6,7 +6,7 @@
 /*   By: gfabre <gfabre@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:58:42 by gfabre            #+#    #+#             */
-/*   Updated: 2023/11/08 14:48:09 by gfabre           ###   ########.fr       */
+/*   Updated: 2023/11/09 16:03:04 by gfabre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,26 @@ int	get_size(char *str, char *replace)
 		negativesize++;
 		i++;
 	}
-	printf("strsize = %d\n", strsize);
-	printf("replacesize = %d\n", replacesize);
-	printf("negativesize = %d\n", negativesize);
 	newtotal = (strsize - negativesize) + replacesize + 1;
 	return (newtotal);
+}
+
+int	ft_strstr2(const char *haystack, const char *needle)
+{
+	size_t	i;
+
+	i = 0;
+	if (*haystack == 0)
+		return (0);
+	if (haystack[i] == needle[i])
+	{
+		while (haystack[i] != '=' || needle[i])
+		{
+			if (haystack[i] != needle[i])
+				return (0);
+			i++;
+		}
+		return (1);
+	}
+	return (0);
 }
