@@ -6,7 +6,7 @@
 /*   By: gfabre <gfabre@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 11:54:44 by edilson           #+#    #+#             */
-/*   Updated: 2023/11/09 15:11:49 by gfabre           ###   ########.fr       */
+/*   Updated: 2023/11/14 17:03:04 by gfabre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
+# include <sys/wait.h>
 
 int		g_error;
 void	whereyougo(char *str, int index);
@@ -63,5 +64,7 @@ char	*get_str(char *str);
 char	*get_inpath(char *replace, char **env);
 int		get_size(char *str, char *replace);
 int		ft_strstr2(const char *haystack, const char *needle);
+char	*get_newstr3(char *str, char *newstr, int i, int j);
+int		test_error(void);
 
 #endif

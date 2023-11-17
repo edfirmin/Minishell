@@ -6,7 +6,7 @@
 /*   By: gfabre <gfabre@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 13:48:14 by gfabre            #+#    #+#             */
-/*   Updated: 2023/11/08 15:11:56 by gfabre           ###   ########.fr       */
+/*   Updated: 2023/11/14 16:34:48 by gfabre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	exec_com(char *str, char **env)
 		log = ft_strjoin("/Users/", log);
 		chdir(log);
 	}
+	if (check_com(str, "error"))
+		test_error();
 }
 
 int	check_com(char *s1, char *s2)
