@@ -6,7 +6,7 @@
 /*   By: edilson <edilson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 11:54:44 by edilson           #+#    #+#             */
-/*   Updated: 2023/11/17 14:32:16 by edilson          ###   ########.fr       */
+/*   Updated: 2023/11/18 15:38:10 by edilson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,10 @@ void	print_noway(char *str);
 int	check_com(char *s1, char *s2);
 void	print_env(char **env);
 char	**get_env(char **env);
+char	**pars_com(char *str, char **env);
 
 void	get_com(char **env);
+void	exec_lilcom(char *str, char **env);
 void	exec_com(char *str, char **env);
 int		check_com(char *s1, char *s2);
 void	ft_ctrl(int sig);

@@ -6,7 +6,7 @@
 /*   By: edilson <edilson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 21:16:32 by gfabre            #+#    #+#             */
-/*   Updated: 2023/11/17 15:08:28 by edilson          ###   ########.fr       */
+/*   Updated: 2023/11/23 14:22:39 by edilson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ int	ft_analyse(char *str)
 	while (str[i])
 	{
 		if (str[i] == '$')
-			return (i);
+			return (1);
 		i++;
 	}
-	return (-1);
+	return (0);
 }
 
 char	*get_newstr(char *str, char **env)
@@ -47,17 +47,10 @@ char	*get_str(char *str)
 	while (str[i] != '$')
 		i++;
 	i++;
-	while (str[i] != ' ' && str[i] != '\0')
-	{
+	while (str[i + j] != ' ' && str[i + j] != '\0')
 		j++;
-		i++;
-	}
 	replace = malloc(sizeof(char) * (j + 1));
 	j = 0;
-	i = 0;
-	while (str[i] != '$')
-		i++;
-	i++;
 	while (str[i] != ' ' && str[i] != '\0')
 	{
 		replace[j++] = str[i];
@@ -86,6 +79,10 @@ char	*get_inpath(char *replace, char **env)
 		return (NULL);
 	while (env[j][i] != '=')
 		i++;
+	k = ft_strlen(&env[j][i]);
+	free (replace);
+	replace = ft_calloc(k + 1, sizeof(char));
+	k = 0;
 	while (env[j][++i])
 	{
 		replace[k] = env[j][i];
@@ -107,8 +104,7 @@ char	*get_newstr2(char *str, char *replace)
 	j = 0;
 	k = 0;
 	newsize = get_size(str, replace);
-	printf("lol\n");
-	newstr = malloc(sizeof (char) * (newsize + 1));
+	newstr = malloc((newsize + 1) * sizeof(char));
 	while (str[i] != '$')
 	{
 		newstr[j] = str[i];
@@ -118,10 +114,12 @@ char	*get_newstr2(char *str, char *replace)
 	while (replace[k] != '\0')
 	{
 		newstr[j] = replace[k];
-		j++;
 		k++;
+		j++;
 	}
 	newstr = get_newstr3(str, newstr, i, j);
-	printf("kkk\n");
+	free(replace);
 	return (newstr);
 }
+
+//gerer multiple $

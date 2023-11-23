@@ -6,7 +6,7 @@
 /*   By: edilson <edilson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 11:12:39 by edilson           #+#    #+#             */
-/*   Updated: 2023/11/17 15:04:58 by edilson          ###   ########.fr       */
+/*   Updated: 2023/11/22 15:20:08 by edilson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ void	ft_ctrl(int sig)
 	}
 }
 
-void	exec_com(char *str, char **env)
+void	exec_lilcom(char *str, char **env)
 {
 	char	*log;
 
-	if (ft_analyse(str) != -1)
+	if (ft_analyse(str))
 		str = get_newstr(str, env);
 	if (check_com(str, "exit"))
 	{
@@ -57,8 +57,10 @@ void	exec_com(char *str, char **env)
 void	other_com(char *str)
 {
 	char	**tab;
+	char	*sstr;
 
-	tab = ft_split(str, ' ');
+	sstr = ft_strdup(str);
+	tab = ft_split(sstr, ' ');
 	if (check_com(tab[0], "echo") && check_com(tab[1], "-n"))
 		print_echo(&tab[2], 1);
 	if (check_com(tab[0], "exit"))
@@ -100,36 +102,66 @@ void print_ctl(int n)
 	tcsetattr(STDIN_FILENO, TCSANOW, &termin);
 }
 
+char	**pars_com(char *str, char **env)
+{
+	char	**tab;
+
+	tab = NULL;
+	while (ft_analyse(str))
+		str = get_newstr(str, env);
+	str = check_sl(str);
+	tab = ft_split(str, ';');
+	return (tab);
+}
+
+void	exec_com(char *str, char **env)
+{
+	char	**tab;
+	char	*sstr;
+
+	sstr = ft_strdup(str);
+	tab = ft_split(sstr, ' ');
+	// printf("exec_com =%s\n", str);
+	if (!tab[1])
+	{
+		exec_lilcom(tab[0], env);
+		tab_free(tab);
+		return ;
+	}
+	else
+	{
+		check_other(str, env);
+		tab_free(tab);
+		return ;
+	}
+}
+
 void get_com(char **env)
 {
 	char	*str;
 	char	**tab;
+	int		i;
 
 	tab = NULL;
+	i = 0;
 	print_ctl(1);
 	signal(SIGINT, ft_ctrl);
 	signal(SIGQUIT, ft_ctrl);
 	str = readline("minishell$> ");
-	while (ft_analyse(str) != -1)
-		str = get_newstr(str, env);
 	if (str == NULL)
 	{
 		printf("quit\n");
 		exit(0);
 	}
-	else if (str[0])
+	if (str[0])
 	{
 		add_history(str);
-		str = check_sl(str);
-		tab = ft_split(str, ' ');
-		if (!tab[1])
+		tab = pars_com(str, env);
+		while (tab[i])
 		{
-			exec_com(tab[0], env);
-			if (tab)
-				tab_free(tab);
+			exec_com(tab[i], env);
+			i++;
 		}
-		else
-			check_other(str, env);
 	}
 }
 

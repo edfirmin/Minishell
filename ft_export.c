@@ -6,7 +6,7 @@
 /*   By: edilson <edilson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 14:20:06 by gfabre            #+#    #+#             */
-/*   Updated: 2023/11/17 14:37:32 by edilson          ###   ########.fr       */
+/*   Updated: 2023/11/20 17:08:40 by edilson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,24 @@ void	ft_export(char *str, char **env)
 {
 	int	j;
 	int	i;
-	int	k;
+	// int	k;
 
 	i = 6;
-	k = 0;
+	// k = 0;
 	j = check_if_alrdy(str, env);
 	while (str[i] == ' ' || str[i] == '	')
 		i++;
 	if (j != -1)
 	{
-		while (str[i])
-		{
-			env[j][k] = str[i];
-			i++;
-			k++;
-		}
-		env[j][k] = '\0';
+		free(env[j]);
+		env[j] = ft_strdup(&str[i]);
+		// while (str[i])
+		// {
+		// 	env[j][k] = str[i];
+		// 	i++;
+		// 	k++;
+		// }
+		// env[j][k] = '\0';
 	}
 	else if (j == -1)
 		ft_export2(str, env);

@@ -6,7 +6,7 @@
 /*   By: edilson <edilson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 11:36:34 by edilson           #+#    #+#             */
-/*   Updated: 2023/09/29 11:37:24 by edilson          ###   ########.fr       */
+/*   Updated: 2023/11/17 17:50:47 by edilson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,5 @@ void	print_echo(char **tab, int fd)
 		ft_putstr_fd("\x1b[47m", fd);
 		ft_putendl_fd("\x1b[30m%\x1b[0m", fd);
 	}
+	printf("oui");
 }

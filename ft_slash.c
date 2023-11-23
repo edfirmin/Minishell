@@ -6,7 +6,7 @@
 /*   By: edilson <edilson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 15:28:30 by edilson           #+#    #+#             */
-/*   Updated: 2023/11/17 13:57:04 by edilson          ###   ########.fr       */
+/*   Updated: 2023/11/23 14:09:40 by edilson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,13 @@ char	*check_sl(char *str)
 	int		i;
 	int		j;
 
-	i = -1;
+	i = 0;
 	s2 = malloc(1);
 	s3 = NULL;
 	if (!ft_find(str, '\\'))
 		return (str);
-	while (str[++i])
+	while (str[i])
 	{
-		if (s1[0])
-			free(s1);
 		s1 = malloc(ft_strlen(str) * sizeof(char));
 		j = 0;
 		while (str[i] != '\\' && str[i])
@@ -54,18 +52,20 @@ char	*check_sl(char *str)
 		if (str[i] == '\\' && !str[i + 1])
 		{
 			s2 = ft_strjoin2(s2, s1);
-			s3 = readline("> ");
 			while (!s3)
 			{
-				rl_replace_line("", 1);
-				rl_redisplay();
 				s3 = readline("> ");
+				if (!s3)
+				{
+					rl_replace_line("", 0);
+					rl_redisplay();
+				}
 			}
 			s2 = ft_strjoin2(s2, s3);
 		}
 		else if (str[i] == '\\' && str[i + 1] == '\\')
 		{
-			s1 = ft_strjoin2(s1, "\\");
+			s1 = ft_strjoin(s1, "\\");
 			s2 = ft_strjoin2(s2, s1);
 			i++;
 		}
@@ -75,7 +75,10 @@ char	*check_sl(char *str)
 		}
 		if (!str[i])
 			s2 = ft_strjoin2(s2, s1);
+		i++;
+		free(s1);
 	}
+	free(str);
 	str = ft_strdup(s2);
 	return (str);
 }
