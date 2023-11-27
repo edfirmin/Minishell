@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edfirmin <edfirmin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edilson <edilson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 11:52:33 by edfirmin          #+#    #+#             */
-/*   Updated: 2023/06/24 14:31:19 by edfirmin         ###   ########.fr       */
+/*   Updated: 2023/11/27 17:08:37 by edilson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@ typedef struct s_list
 	void			*content;
 	struct s_list	*next;
 }				t_list;
+
+typedef struct s_int
+{
+	int	i;
+	int	j;
+}				t_int;
 
 int				ft_isalnum(int c);
 int				ft_isalpha(int c);

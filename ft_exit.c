@@ -6,7 +6,7 @@
 /*   By: edilson <edilson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 11:38:22 by edilson           #+#    #+#             */
-/*   Updated: 2023/11/15 14:18:55 by edilson          ###   ########.fr       */
+/*   Updated: 2023/11/23 15:02:56 by edilson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	ft_exit(char **tab)
 
 	i = 0;
 	n = 0;
+	code_set = n;
 	if (tab[1])
 	{
 		ft_putstr_fd("exit: too many arguments\n", 2);
@@ -76,5 +77,6 @@ void	ft_exit(char **tab)
 		n = long_nbr(tab[0], i);
 	else 
 		n = ft_atoi(tab[0]);
+	code_set = n;
 	exit (n);
 }

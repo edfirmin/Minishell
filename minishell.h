@@ -6,7 +6,7 @@
 /*   By: edilson <edilson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 11:54:44 by edilson           #+#    #+#             */
-/*   Updated: 2023/11/18 15:38:10 by edilson          ###   ########.fr       */
+/*   Updated: 2023/11/23 15:02:00 by edilson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # include <sys/wait.h>
 # include <termios.h>
 
-int	error;
+int	code_set;
 
 void	print_echo(char **tab, int fd);
 void	ft_exit(char **tab);

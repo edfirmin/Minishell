@@ -6,7 +6,7 @@
 /*   By: edilson <edilson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 21:16:32 by gfabre            #+#    #+#             */
-/*   Updated: 2023/11/23 14:22:39 by edilson          ###   ########.fr       */
+/*   Updated: 2023/11/27 17:18:52 by edilson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*get_str(char *str)
 		j++;
 	replace = malloc(sizeof(char) * (j + 1));
 	j = 0;
-	while (str[i] != ' ' && str[i] != '\0')
+	while (str[i] != ' ' && str[i] != '\0' && str[i] != '$')
 	{
 		replace[j++] = str[i];
 		i++;
@@ -64,61 +64,170 @@ char	*get_inpath(char *replace, char **env)
 {
 	int	i;
 	int	j;
-	int	k;
+	// int	k;
 
 	i = 0;
 	j = 0;
-	k = 0;
+	// k = 0;
 	while (env[j])
 	{
 		if (ft_strstr2(env[j], replace) == 1)
 			break ;
 		j++;
 	}
-	if (env[j] == NULL)
+	if (!env[j])
+	{
+		free(replace);
 		return (NULL);
+	}
 	while (env[j][i] != '=')
 		i++;
-	k = ft_strlen(&env[j][i]);
-	free (replace);
-	replace = ft_calloc(k + 1, sizeof(char));
-	k = 0;
-	while (env[j][++i])
+	free(replace);
+	i++;
+	replace = ft_strdup(&env[j][i]);
+	// k = ft_strlen(&env[j][i]);
+	// free (replace);
+	// replace = ft_calloc(k + 1, sizeof(char));
+	// k = 0;
+	// while (env[j][++i])
+	// {
+	// 	replace[k] = env[j][i];
+	// 	k++;
+	// }
+	// replace[k] = '\0';
+	return (replace);
+}
+
+int	go_next(int i, char *str)
+{
+	int	j;
+
+	j = i + 1;
+	while (str[j] && str[j] != '$' && str[j] != ' ' && str[j] != '	')
+		j++;
+	return (j);
+	
+}
+
+int	dol_aloc(char *str)
+{
+	int	i;
+	int	k;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (str[i] != '$')
+		i++;
+	k = i;
+	while (str[i] && str[i] != ' ' && str[i] != '	')
+		i++;
+	while(str[i])
 	{
-		replace[k] = env[j][i];
+		i++;
+		j++;
+	}
+	k = k + j;
+	return(k); 
+}
+
+char	*no_env(char *str, char *newstr)
+{
+	int	i;
+	int	j;
+
+	j = 0;
+	i = dol_aloc(str);
+	newstr = malloc((i + 1) * sizeof(char));
+	i = -1;
+	while (str[++i] != '$')
+	{
+		newstr[j] = str[i];
+		j++;
+	}
+	i++;
+	while (str[i] && str[i] != ' ' && str[i] != '	' && str[i] != '$')
+		i++;
+	while(str[i])
+	{
+		newstr[j] = str[i];
+		i++;
+		j++;
+	}
+	newstr[j] = '\0';
+	free(str);
+	return (newstr);
+}
+
+char	*get_dol(t_int *val, char *str, char *newstr, char *replace)
+{
+	int	k;
+
+	(*val).i = 0;
+	(*val).j = 0;
+	k = 0;
+	while (str[(*val).i] != '$')
+	{
+		newstr[(*val).j] = str[(*val).i];
+		(*val).i++;
+		(*val).j++;
+	}
+	while (replace[k] != '\0')
+	{
+		newstr[(*val).j] = replace[k];
+		(*val).j++;
 		k++;
 	}
-	replace[k] = '\0';
-	return (replace);
+	(*val).i = go_next((*val).i, str);
+	while(str[(*val).i])
+	{
+		newstr[(*val).j] = str[(*val).i];
+		(*val).i++;
+		(*val).j++;
+	}
+	return (newstr);
 }
 
 char	*get_newstr2(char *str, char *replace)
 {
 	int		newsize;
 	char	*newstr;
-	int		i;
-	int		j;
-	int		k;
+	// int		i;
+	// int		j;
+	// int		k;
+	t_int	val;
 
-	i = 0;
-	j = 0;
-	k = 0;
+	val.i = 0;
+	val.j = 0;
+	// k = 0;
+	newstr = NULL;
+	if (!replace)
+		return(no_env(str, newstr));
 	newsize = get_size(str, replace);
 	newstr = malloc((newsize + 1) * sizeof(char));
-	while (str[i] != '$')
-	{
-		newstr[j] = str[i];
-		i++;
-		j++;
-	}
-	while (replace[k] != '\0')
-	{
-		newstr[j] = replace[k];
-		k++;
-		j++;
-	}
-	newstr = get_newstr3(str, newstr, i, j);
+	newstr = get_dol(&val, str, newstr, replace);
+	// while (str[i] != '$')
+	// {
+	// 	newstr[j] = str[i];
+	// 	i++;
+	// 	j++;
+	// }
+	// while (replace[k] != '\0')
+	// {
+	// 	newstr[j] = replace[k];
+	// 	j++;
+	// 	k++;
+	// }
+	// i = go_next(i, str);
+	// while(str[i])
+	// {
+	// 	newstr[j] = str[i];
+	// 	i++;
+	// 	j++;
+	// }
+	newstr = get_newstr3(str, newstr, val.i, val.j);
 	free(replace);
+	free(str);
 	return (newstr);
 }
 

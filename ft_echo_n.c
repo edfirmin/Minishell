@@ -6,7 +6,7 @@
 /*   By: edilson <edilson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 11:36:34 by edilson           #+#    #+#             */
-/*   Updated: 2023/11/17 17:50:47 by edilson          ###   ########.fr       */
+/*   Updated: 2023/11/26 21:44:15 by edilson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	print_echo(char **tab, int fd)
 	i = 0;
 	if (!tab[0])
 		return ;
+	i++;
 	while (tab[i])
 	{
 		ft_putstr_fd(tab[i], fd);
@@ -26,10 +27,11 @@ void	print_echo(char **tab, int fd)
 			ft_putchar_fd(' ', fd);
 		i++;
 	}
-	if (fd == 1)
+	if (check_com(tab[0], "-n") && tab[1])
 	{
 		ft_putstr_fd("\x1b[47m", fd);
 		ft_putendl_fd("\x1b[30m%\x1b[0m", fd);
 	}
-	printf("oui");
+	else if (!check_com(tab[0], "-n"))
+		ft_putchar_fd('\n', fd);
 }

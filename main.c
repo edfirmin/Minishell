@@ -6,7 +6,7 @@
 /*   By: edilson <edilson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 11:12:39 by edilson           #+#    #+#             */
-/*   Updated: 2023/11/22 15:20:08 by edilson          ###   ########.fr       */
+/*   Updated: 2023/11/27 17:46:19 by edilson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	exec_lilcom(char *str, char **env)
 		print_env(env);
 	if (check_com(str, "echo"))
 		printf("\n");
+	if (check_com(str, "$?"))
+		printf("zsh: command not found: %d\n", code_set);
 	if (check_com(str, "cd"))
 	{
 		log = getenv("LOGNAME=");
@@ -62,8 +64,10 @@ void	other_com(char *str)
 	sstr = ft_strdup(str);
 	tab = ft_split(sstr, ' ');
 	if (check_com(tab[0], "echo") && check_com(tab[1], "-n"))
-		print_echo(&tab[2], 1);
-	if (check_com(tab[0], "exit"))
+		print_echo(&tab[1], 1);
+	else if (check_com(tab[0], "echo"))
+		print_echo(tab, 1);
+	else if (check_com(tab[0], "exit"))
 		ft_exit(&tab[1]);
 	
 }
@@ -109,7 +113,8 @@ char	**pars_com(char *str, char **env)
 	tab = NULL;
 	while (ft_analyse(str))
 		str = get_newstr(str, env);
-	str = check_sl(str);
+	if (str)
+		str = check_sl(str);
 	tab = ft_split(str, ';');
 	return (tab);
 }
@@ -121,7 +126,6 @@ void	exec_com(char *str, char **env)
 
 	sstr = ft_strdup(str);
 	tab = ft_split(sstr, ' ');
-	// printf("exec_com =%s\n", str);
 	if (!tab[1])
 	{
 		exec_lilcom(tab[0], env);
@@ -169,6 +173,7 @@ int main(int argc, char **argv, char **env)
 {
 	char	**env2;
 
+	code_set = 0;
 	if (argc != 1)
 	{
 		ft_putstr_fd("Error\nInvalid number of arguments\n", 2);
