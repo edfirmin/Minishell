@@ -6,7 +6,7 @@
 /*   By: edilson <edilson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 21:16:32 by gfabre            #+#    #+#             */
-/*   Updated: 2023/11/27 17:18:52 by edilson          ###   ########.fr       */
+/*   Updated: 2023/12/11 13:36:49 by edilson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,11 @@ char	*get_inpath(char *replace, char **env)
 	i = 0;
 	j = 0;
 	// k = 0;
+	if (!ft_strncmp(replace, "?", 2))
+	{
+		free(replace);
+		return(ft_itoa(code_set));
+	}
 	while (env[j])
 	{
 		if (ft_strstr2(env[j], replace) == 1)

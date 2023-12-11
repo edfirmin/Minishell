@@ -6,7 +6,7 @@
 /*   By: edilson <edilson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 11:12:39 by edilson           #+#    #+#             */
-/*   Updated: 2023/11/27 17:46:19 by edilson          ###   ########.fr       */
+/*   Updated: 2023/12/11 13:36:20 by edilson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	ft_ctrl(int sig)
 {	
 	if (sig == SIGINT)
 	{
+		code_set = 130;
 		ft_putendl_fd("", 1);
 		rl_replace_line("", 0);
 		rl_on_new_line();
@@ -23,7 +24,7 @@ void	ft_ctrl(int sig)
 	}
 	if (sig == SIGQUIT)
 	{
-		rl_replace_line("", 1);
+		code_set = 127;
 		rl_redisplay();
 	}
 }
@@ -32,8 +33,8 @@ void	exec_lilcom(char *str, char **env)
 {
 	char	*log;
 
-	if (ft_analyse(str))
-		str = get_newstr(str, env);
+	// if (ft_analyse(str))
+	// 	str = get_newstr(str, env);
 	if (check_com(str, "exit"))
 	{
 		printf("quit\n");
@@ -46,7 +47,7 @@ void	exec_lilcom(char *str, char **env)
 	if (check_com(str, "echo"))
 		printf("\n");
 	if (check_com(str, "$?"))
-		printf("zsh: command not found: %d\n", code_set);
+		printf("minishell: command not found: %d\n", code_set);
 	if (check_com(str, "cd"))
 	{
 		log = getenv("LOGNAME=");
@@ -104,6 +105,20 @@ void print_ctl(int n)
 	if (n == 1)
 		termin.c_lflag &= ~ECHOCTL;
 	tcsetattr(STDIN_FILENO, TCSANOW, &termin);
+}
+
+int	ft_char(char *str, char c)
+{
+	int	i;
+
+	i = 0;
+	while(str[i])
+	{
+		if (str[i] == c)
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
 char	**pars_com(char *str, char **env)
@@ -166,6 +181,8 @@ void get_com(char **env)
 			exec_com(tab[i], env);
 			i++;
 		}
+		if (tab)
+			tab_free(tab);
 	}
 }
 

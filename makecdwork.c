@@ -6,7 +6,7 @@
 /*   By: edilson <edilson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 11:30:14 by gfabre            #+#    #+#             */
-/*   Updated: 2023/11/17 14:57:20 by edilson          ###   ########.fr       */
+/*   Updated: 2023/12/11 13:18:28 by edilson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ int	get_index(char *str, int index, char *pwd)
 
 void	print_error(int checkpoint)
 {
+	code_set = 1;
 	ft_putstr_fd("cd: no such file or directory: ", 2);
 	while (checkpoint >= 0)
 	{
