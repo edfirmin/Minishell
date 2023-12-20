@@ -6,7 +6,7 @@
 /*   By: edilson <edilson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 03:48:46 by edilson           #+#    #+#             */
-/*   Updated: 2023/12/20 03:52:49 by edilson          ###   ########.fr       */
+/*   Updated: 2023/12/20 04:27:17 by edilson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ char	*quote(char *str, char **env)
 			copy = doub_quote(copy, str, &val, env);
 		if (!copy)
 			return (NULL);
-		if (str[val.i])
+		if (str[val.i] && str[val.i] != '\"' && str[val.i] != '\'')
 		{
 			copy[val.j] = str[val.i];
 			val.i++;
