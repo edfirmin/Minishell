@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utile1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edilson <edilson@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gfabre <gfabre@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 15:32:34 by edilson           #+#    #+#             */
-/*   Updated: 2023/11/17 14:15:43 by edilson          ###   ########.fr       */
+/*   Updated: 2023/12/18 17:32:14 by gfabre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,20 @@ char	**get_env(char **env)
 	}
 	env2[j] = NULL;
 	return (env2);
+}
+
+int	check_quote(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\'')
+			return (1);
+		if (str[i] == '\"')
+			return (2);
+		i++;
+	}
+	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edilson <edilson@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gfabre <gfabre@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 11:54:44 by edilson           #+#    #+#             */
-/*   Updated: 2023/12/11 12:47:43 by edilson          ###   ########.fr       */
+/*   Updated: 2023/12/18 17:34:19 by gfabre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,19 @@ char	*get_inpath(char *replace, char **env);
 int		get_size(char *str, char *replace);
 int		ft_strstr2(const char *haystack, const char *needle);
 char	*get_newstr3(char *str, char *newstr, int i, int j);
+int		single(char *str);
+char	*get_newstrsingle(char *str);
+char	*no_env(char *str, char *newstr);
+char	*get_sgl_quote(t_int *val, char *str, char *newstr, char *replace);
+int		go_nextsgl(int i, char *str);
+char	*get_newstrsingle2(char *str, char *replace);
+char	*get_newstrsgl(char *str);
+int		dbl(char *str);
+char	*get_newstrdbl(char *str);
+char	*get_newstrdouble(char *str);
+char	*get_dbl_quote(t_int *val, char *str, char *newstr, char *replace);
+int		go_nextdbl(int i, char *str);
+char	*get_newstrdbl2(char *str, char *replace);
+int		check_quote(char *str);
 
 #endif

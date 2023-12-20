@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edilson <edilson@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gfabre <gfabre@student.42nice.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 11:12:39 by edilson           #+#    #+#             */
-/*   Updated: 2023/12/11 13:36:20 by edilson          ###   ########.fr       */
+/*   Updated: 2023/12/20 02:00:03 by gfabre           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ void	other_com(char *str)
 		print_echo(tab, 1);
 	else if (check_com(tab[0], "exit"))
 		ft_exit(&tab[1]);
-	
 }
 
 void	check_other(char *cmd, char **env)
@@ -95,7 +94,7 @@ void	check_other(char *cmd, char **env)
 	}
 }
 
-void print_ctl(int n)
+void	print_ctl(int n)
 {
 	struct termios	termin;
 
@@ -112,7 +111,7 @@ int	ft_char(char *str, char c)
 	int	i;
 
 	i = 0;
-	while(str[i])
+	while (str[i])
 	{
 		if (str[i] == c)
 			return (1);
@@ -126,6 +125,20 @@ char	**pars_com(char *str, char **env)
 	char	**tab;
 
 	tab = NULL;
+	if (check_quote(str) == 1)
+	{
+		while (single(str) == 1)
+			str = get_newstrsgl(str);
+		tab = ft_split(str, ';');
+		return (tab);
+	}
+	if (check_quote(str) == 2)
+	{
+		while (dbl(str) == 1)
+			str = get_newstrdouble(str);
+		tab = ft_split(str, ';');
+		return (tab);
+	}
 	while (ft_analyse(str))
 		str = get_newstr(str, env);
 	if (str)
@@ -199,7 +212,7 @@ int main(int argc, char **argv, char **env)
 	if (argv)
 		argv = &argv[1];
 	env2 = get_env(env);
-	while(1)
+	while (1)
 	{
 		get_com(env2);
 	}
