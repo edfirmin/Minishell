@@ -6,7 +6,7 @@
 /*   By: edilson <edilson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 21:16:32 by gfabre            #+#    #+#             */
-/*   Updated: 2023/12/11 15:04:46 by edilson          ###   ########.fr       */
+/*   Updated: 2023/12/22 01:04:29 by edilson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,13 @@ char	*get_str(char *str)
 	while (str[i] != '$')
 		i++;
 	i++;
-	while (str[i + j] != ' ' && str[i + j] != '\0')
+	while (str[i + j] != ' ' && str[i + j] != '\0'
+		&& str[i] != '\'' && str[i] != '\"')
 		j++;
 	replace = malloc(sizeof(char) * (j + 1));
 	j = 0;
-	while (str[i] != ' ' && str[i] != '\0' && str[i] != '$')
+	while (str[i] != ' ' && str[i] != '\0'
+		&& str[i] != '$' && str[i] != '\'' && str[i] != '\"')
 	{
 		replace[j++] = str[i];
 		i++;
@@ -96,7 +98,7 @@ int	go_next(int i, char *str)
 	int	j;
 
 	j = i + 1;
-	while (str[j] && str[j] != '$' && str[j] != ' ' && str[j] != '	')
+	while (str[j] && str[j] != '$' && str[j] != ' ' && str[j] != '	' && str[j] != '\'' && str[j] != '\"')
 		j++;
 	return (j);
 }

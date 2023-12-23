@@ -6,7 +6,7 @@
 /*   By: edilson <edilson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 03:48:46 by edilson           #+#    #+#             */
-/*   Updated: 2023/12/20 04:27:17 by edilson          ###   ########.fr       */
+/*   Updated: 2023/12/21 20:28:06 by edilson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,10 @@ char	*doub_quote(char *copy, char *str, t_int *val, char **env)
 		return (NULL);
 	}
 	(*val).i++;
-	while (ft_analyse(str))
-		str = get_newstr(str, env);
+	while (ft_analyse(copy))
+		copy = get_newstr(copy, env);
+	while (copy[(*val).j])
+		(*val).j++;
 	return (copy);
 }
 
