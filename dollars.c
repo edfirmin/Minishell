@@ -6,31 +6,19 @@
 /*   By: edilson <edilson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 21:16:32 by gfabre            #+#    #+#             */
-/*   Updated: 2023/12/22 01:04:29 by edilson          ###   ########.fr       */
+/*   Updated: 2024/01/06 22:33:25 by edilson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	ft_analyse(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '$')
-			return (1);
-		i++;
-	}
-	return (0);
-}
 
 char	*get_newstr(char *str, char **env)
 {
 	char	*replace;
 
 	replace = get_str(str);
+	if (!replace)
+		return (str);
 	replace = get_inpath(replace, env);
 	str = get_newstr2(str, replace);
 	return (str);
@@ -45,7 +33,20 @@ char	*get_str(char *str)
 	i = 0;
 	j = 0;
 	while (str[i] != '$')
+	{
+		if (str[i] == '\'')
+		{
+			i++;
+			while (str[i] != '\'' && str[i] != '\0')
+				i++;
+			i++;
+		}
+		if (!str[i])
+			break ;
 		i++;
+	}
+	if (!str[i])
+		return (NULL);
 	i++;
 	while (str[i + j] != ' ' && str[i + j] != '\0'
 		&& str[i] != '\'' && str[i] != '\"')
@@ -81,48 +82,13 @@ char	*get_inpath(char *replace, char **env)
 		j++;
 	}
 	if (!env[j])
-	{
-		free(replace);
-		return (NULL);
-	}
+		return (ft_free(replace, NULL));
 	while (env[j][i] != '=')
 		i++;
 	free(replace);
 	i++;
 	replace = ft_strdup(&env[j][i]);
 	return (replace);
-}
-
-int	go_next(int i, char *str)
-{
-	int	j;
-
-	j = i + 1;
-	while (str[j] && str[j] != '$' && str[j] != ' ' && str[j] != '	' && str[j] != '\'' && str[j] != '\"')
-		j++;
-	return (j);
-}
-
-int	dol_aloc(char *str)
-{
-	int	i;
-	int	k;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (str[i] != '$')
-		i++;
-	k = i;
-	while (str[i] && str[i] != ' ' && str[i] != '	')
-		i++;
-	while (str[i])
-	{
-		i++;
-		j++;
-	}
-	k = k + j;
-	return (k);
 }
 
 char	*no_env(char *str, char *newstr)
@@ -153,35 +119,6 @@ char	*no_env(char *str, char *newstr)
 	return (newstr);
 }
 
-char	*get_dol(t_int *val, char *str, char *newstr, char *replace)
-{
-	int	k;
-
-	(*val).i = 0;
-	(*val).j = 0;
-	k = 0;
-	while (str[(*val).i] != '$')
-	{
-		newstr[(*val).j] = str[(*val).i];
-		(*val).i++;
-		(*val).j++;
-	}
-	while (replace[k] != '\0')
-	{
-		newstr[(*val).j] = replace[k];
-		(*val).j++;
-		k++;
-	}
-	(*val).i = go_next((*val).i, str);
-	while (str[(*val).i])
-	{
-		newstr[(*val).j] = str[(*val).i];
-		(*val).i++;
-		(*val).j++;
-	}
-	return (newstr);
-}
-
 char	*get_newstr2(char *str, char *replace)
 {
 	int		newsize;
@@ -201,5 +138,3 @@ char	*get_newstr2(char *str, char *replace)
 	free(str);
 	return (newstr);
 }
-
-//gerer multiple $

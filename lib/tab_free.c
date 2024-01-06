@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   tab_free.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: edfirmin <edfirmin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: edilson <edilson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 14:51:07 by edfirmin          #+#    #+#             */
-/*   Updated: 2023/06/23 14:52:12 by edfirmin         ###   ########.fr       */
+/*   Updated: 2023/12/29 18:55:02 by edilson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	tab_free(char **tab)
+void	*tab_free(char **tab)
 {
 	int	i;
 
@@ -23,4 +23,5 @@ void	tab_free(char **tab)
 		i++;
 	}
 	free(tab);
+	return (NULL);
 }

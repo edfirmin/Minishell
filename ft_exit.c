@@ -6,11 +6,18 @@
 /*   By: edilson <edilson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 11:38:22 by edilson           #+#    #+#             */
-/*   Updated: 2023/12/18 18:03:49 by edilson          ###   ########.fr       */
+/*   Updated: 2024/01/01 20:41:16 by edilson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	ft_exit0(int n)
+{
+	printf("quit\n");
+	code_set = n;
+	exit(n);
+}
 
 void	bad_expres2(char *str, int i)
 {
@@ -34,7 +41,8 @@ void	bad_expres(char *str)
 	i = 0;
 	if (str[i] != '-' || str[i] != '+')
 	{
-		ft_putstr_fd("minishell: bad math expression: operator expected at `", 2);
+		ft_putstr_fd("minishell: bad math expression: ", 2);
+		ft_putstr_fd("operator expected at `", 2);
 		ft_putstr_fd(&str[i], 2);
 		ft_putendl_fd("'", 2);
 		return ;
@@ -49,25 +57,18 @@ void	bad_expres(char *str)
 			ft_putendl_fd("operand expected at end of string", 2);
 		}
 	}
-	while (str[i] == '-' || str[i] == '+')
-	{
+	if (str[i] == '-' || str[i] == '+')
 		bad_expres2 (str, i);
-		return ;
-	}
+	code_set = 1;
 }
 
-void	ft_exit(char **tab, char **env)
+void	ft_exit(char **tab)
 {
 	long long int	n;
 	int				i;
-	char			**path;
 
 	i = 0;
 	n = 0;
-	path = get_path2(find_path(env));
-	if (!check_path_bult("echo", path))
-		return ;
-	code_set = n;
 	if (tab[1])
 	{
 		code_set = 1;
@@ -75,7 +76,7 @@ void	ft_exit(char **tab, char **env)
 		return ;
 	}
 	if (!ft_isdigit(tab[0][0]) && (tab[0][0] != '-' && tab[0][0] != '+'))
-		exit(n);
+		ft_exit0(n);
 	else if (tab[0][0] == '-' || tab[0][0] == '+')
 		i++;
 	while (ft_isdigit(tab[0][i]) && tab[0][i])
@@ -86,5 +87,5 @@ void	ft_exit(char **tab, char **env)
 		n = long_nbr(tab[0], i);
 	else
 		n = ft_atoi(tab[0]);
-	exit (code_set = n);
+	ft_exit0(n);
 }

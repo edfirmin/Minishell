@@ -6,7 +6,7 @@
 /*   By: edilson <edilson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 17:44:40 by edilson           #+#    #+#             */
-/*   Updated: 2023/12/18 18:16:32 by edilson          ###   ########.fr       */
+/*   Updated: 2023/12/29 19:00:42 by edilson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int	check_path_bult(char *com, char **env)
 		if (j == -1 && !env[i + 1])
 		{
 			ft_putstr_fd("The commend does not exist !\n", 2);
+			free(str);
 			code_set = 127;
 			return (0);
 		}

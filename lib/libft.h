@@ -6,7 +6,7 @@
 /*   By: edilson <edilson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 11:52:33 by edfirmin          #+#    #+#             */
-/*   Updated: 2023/11/27 17:08:37 by edilson          ###   ########.fr       */
+/*   Updated: 2023/12/29 18:54:59 by edilson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int				ft_printhexa_min(unsigned int n);
 int				ft_printhexa_maj(unsigned int n);
 int				ft_printstr(char *str);
 int				ft_printadd(unsigned long int n);
-void			tab_free(char **tab);
+void			*tab_free(char **tab);
 char			*ft_strjoin2(char *s1, char *s2);
 
 #endif

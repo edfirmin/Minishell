@@ -6,7 +6,7 @@
 /*   By: edilson <edilson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 03:48:46 by edilson           #+#    #+#             */
-/*   Updated: 2023/12/21 20:28:06 by edilson          ###   ########.fr       */
+/*   Updated: 2023/12/30 18:30:28 by edilson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,12 @@ char	*doub_quote(char *copy, char *str, t_int *val, char **env)
 	if (!str[(*val).i])
 	{
 		ft_putendl_fd("error : double quote open !", 2);
-		return (NULL);
+		return (ft_free(str, copy));
 	}
 	(*val).i++;
 	while (ft_analyse(copy))
 		copy = get_newstr(copy, env);
+	(*val).j = 0;
 	while (copy[(*val).j])
 		(*val).j++;
 	return (copy);
@@ -43,11 +44,15 @@ char	*sim_quote(char *copy, char *str, t_int *val)
 		(*val).i++;
 		(*val).j++;
 	}
+	copy[(*val).j] = '\0';
 	if (!str[(*val).i])
 	{
 		ft_putendl_fd("error : single quote open !", 2);
-		return (NULL);
+		return (ft_free(str, copy));
 	}
+	(*val).j = 0;
+	while (copy[(*val).j])
+		(*val).j++;
 	(*val).i++;
 	return (copy);
 }
@@ -88,7 +93,7 @@ char	*quote(char *str, char **env)
 
 	val.i = 0;
 	val.j = 0;
-	copy = malloc(quote_aloc(str) * sizeof (char));
+	copy = ft_calloc(ft_strlen(str) + 1, sizeof (char));
 	while (str[val.i])
 	{
 		if (str[val.i] == '\'')
@@ -106,7 +111,7 @@ char	*quote(char *str, char **env)
 			val.j++;
 		}
 	}
-	copy[val.j] = '\0';
+	free(str);
 	return (copy);
 }
 
